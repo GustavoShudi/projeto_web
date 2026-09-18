@@ -1,12 +1,11 @@
 package br.uel.projetoweb.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Data
 @AllArgsConstructor
@@ -14,18 +13,30 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name = "livros")
 
-public class livro {
+public class Livro {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Size(max = 150, message = "O ISBN deve ter no máximo 150 caracteres")
+    @NotBlank(message = "ISBN é obrigatório")
     @Column(unique = true, nullable = false, length = 150)
     private String ISBN;
+
+    @Size(max = 100, message = "O título deve ter no máximo 100 caracteres")
+    @NotBlank(message = "O título é obrigatório")
     @Column(nullable = false, length = 100)
     private String titulo;
+
+    @Size(max = 150, message = "O autor deve ter no máximo 150 caracteres")
+    @NotBlank(message = "O autor é obrigatório")
     @Column(nullable = false, length = 150)
     private String autor;
+
     @Column
     private Integer edicao;
+
     @Column
     private int ano;
 // Getters e setters
